@@ -1,0 +1,25 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title 'Make It!' %}
+
+{% block body %}
+
+<div class="masthead">
+    <div class="row">
+        <div class="col-lg-8 mx-auto my-auto mt-5 pt-5">
+            <h1 class="text-black text-center font-weight-bold mb-5">Votre gestionnaire de projet préféré</h1>
+            <hr class="divider" />
+        </div>
+        
+        <div class="col-lg-8 mx-auto">
+            <h3 class="text-black text-center font-weight-bold m-5">Un utilitaire simple pour la gestion de votre projet avec votre équipe, de la conception au déploiement !</h3>
+            <div class="d-grid d-md-block text-center">
+                <a class="btn btn-custom btn-primary btn-lg mx-3" style="width:130px" href="{{ path('app_register') }}">S'inscrire</a>
+                <a class="btn btn-custom btn-primary btn-lg mx-3" style="width:130px" href="#about">Se connecter</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

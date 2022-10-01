@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-md navbar-light nav-custom mb-4 text-light">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="{{ asset('build/img/mi_main_logo.png') }}" alt="mi_main_logo.png" class="logo rounded">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse ml-auto" id="navbarsExample04">
+        <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+          {% if app.user %}
+            <li class="nav-item">
+              <a class="nav-link text-beige" href="#">New</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-beige" href="#">Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-beige" href="#">Logout</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link text-beige" href="{{ path('app_register') }}">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-beige" href="#">Login</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+</nav>

@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import "shared/_variables";
+@import "~bootstrap";
+
+body {
+    font-family: $primary-font, sans-serif;
+    background-color: transparent;
+}
+
+div.masthead {
+    padding-bottom: 25%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url(../img/undraw_scrum_board_re_wk7v.svg), ;
+    background-position: 50% 0%;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: auto;
+}
+
+section.draw-registration {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url(../img/undraw_subscriptions_re_k7jj.svg), ;
+    background-position: 50% 0%;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: auto;
+}
+
+hr.divider {
+    height: 0.2rem;
+    max-width: 30rem;
+    margin: 1.5rem auto;
+    background-color: $bleu_clair;
+    opacity: 1;
+}
+
+.text-bf {
+    color: $bleu-fonce;
+}
+
+.text-bc {
+    color: $bleu-clair;
+}
+
+.text-beige {
+    color: $beige;
+}
+
+.alert {
+    text-align: center;
+}
+
+.nav-custom {
+    background-color: $bleu-fonce;
+    font-size: 120%;
+}
+
+.btn-custom {
+    background-color: $bleu-fonce;
+}
+
+.logo {
+    max-width : 15%;
+    max-height : 15%;
+}
+
+.project img {
+    transition: transform 0.3s ease-out;
+
+    &:hover {
+        transform: scale(1.075);
+    }
+}
+
+
+
+
+ 
