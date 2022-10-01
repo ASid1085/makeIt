@@ -1,0 +1,43 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}Création de votre compte{% endblock %}
+
+{% block body %}
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    <section class="container draw-registration">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <h1 class="text-center mt-5 mb-3">Création de votre compte</h1>
+    
+                {{ form_start(registrationForm) }}
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6 mx-auto">
+                            {{ form_row(registrationForm.firstName) }}
+                        </div>
+                        <div class="col-md-6 mx-auto">
+                            {{ form_row(registrationForm.lastName) }}
+                        </div>
+                    </div>
+                    <br />
+                    {{ form_row(registrationForm.email) }}
+                    <br />
+                    {{ form_row(registrationForm.password) }}
+                    <br />
+
+                    {{ form_row(registrationForm.agreeTerms) }}
+                    <br />
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-lg btn-custom text-beige" formnovalidate>S'inscrire</button>
+                    </div>
+                {{ form_end(registrationForm) }}
+
+                <p class="mt-5 text-center text-muted">Vous avez déjà un compte ? <a href="#">Connectez-vous</a></p>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
