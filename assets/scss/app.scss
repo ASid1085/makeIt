@@ -34,12 +34,44 @@ section.draw-login {
     background-size: 35%;
 }
 
+section.draw-request {
+    padding-bottom: 10%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%), url(../img/undraw_forgot_password_re_hxwm.svg), ;
+    background-position: 50% 0%;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: 40%;
+}
+
+section.draw-reset {
+    padding-bottom: 25%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.6) 100%), url(../img/undraw_update_re_swkp.svg), ;
+    background-position: 50% 0%;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: 50%;
+}
+
 hr.divider {
     height: 0.2rem;
     max-width: 30rem;
     margin: 1.5rem auto;
     background-color: $bleu_clair;
     opacity: 1;
+}
+
+td.main-header {
+    font-size: 20px;
+    letter-spacing: 2px; 
+    line-height: 35px;
+}
+
+td.main-content {
+    font-size: 12px;
+}
+
+p.main-footer {
+    font-size: 18px;
 }
 
 .text-bf {

@@ -1,0 +1,28 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title 'Changer votre mot de passe' %}
+
+{% block body %}
+
+<section class="container my-3 draw-reset">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+        
+            <h1 class="mt-5 mb-3 text-center">Changer votre mot de passe</h1>
+            <br />
+            {{ form_start(resetForm) }}
+                {{ form_row(resetForm.password) }}
+                <br />
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-lg btn-custom text-beige mt-3" formnovalidate>Modifier</button>
+                </div>
+            {{ form_end(resetForm) }}
+            
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+
+

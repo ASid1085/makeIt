@@ -1,0 +1,63 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title 'Envoi mot de passe oublié ?' %}
+
+{% block body %}
+
+    <!-- big image section -->
+    <table border="0" width="100%" cellpadding="0" cellspacing="0" bgcolor="ffffff" class="bg_color">
+        <tr>
+            <td align="center">
+                <table border="0" align="center" width="590" cellpadding="0" cellspacing="0" class="container590">
+                    <tr>                    
+                        <td align="center" class="section-img">
+                            <a href="{{ path('app_login') }}" style=" border-style: none !important; display: block; border: 0 !important;"><img src="{{ asset('build/img/undraw_message_sent_re_q2kl.svg') }}" style="display: block; width: 200;" width="200" border="0" alt="" /></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="20" style="font-size: 20px; line-height: 20px;">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="center" class="main-header">
+                            <div style="line-height: 35px">
+                                Votre demande de <span style="color: #289dd2;">MOT DE PASSE OUBLIE</span> a été traitée avec succès !
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td height="20" style="font-size: 20px; line-height: 20px;">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <table border="0" width="590" align="center" cellpadding="0" cellspacing="0" class="container590">
+                                <tr>
+                                    <td align="center" class="main-content">
+                                        <div style="line-height: 24px">
+                                            <p>
+                                                Si l'adresse mail correspond à un compte, un mail contenant un lien pour ré-initialiser le mot de passe sera envoyé. Ce lien expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+                                            </p>
+                                            <p>
+                                                Si vous ne recevez pas de mail, merci de vérifier vos spams ou de 
+                                                <a href="{{ path('app_forgot_password_request') }}">recommencer</a>.
+                                            </p>
+                                            <br />
+                                            <p class="main-footer">
+                                                A très vite sur <b style="color: #289dd2;">MAKE IT !</b>
+                                            </p>                                      
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <!-- end section -->
+
+{% endblock %}
+
