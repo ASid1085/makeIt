@@ -1,0 +1,15 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title 'Nouvelle étape' %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <h1 class="text-center">Nouvelle étape</h1>
+
+        {{ include('step/_form.html.twig')}}
+    </div>
+</div>
+
+{% endblock %}
