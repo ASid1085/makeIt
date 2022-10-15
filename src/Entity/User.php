@@ -4,7 +4,11 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use App\Entity\Traits\Timestampable;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -13,9 +17,10 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: "users")]
 #[UniqueEntity(fields: ['email'], message: 'Cette adresse mail est déjà utilisée.')]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    use Timestampable;
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -35,18 +40,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private array $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
     #[ORM\Column]
     private ?string $password = null;
 
-    //#[Vich\UploadableField(mapping: 'pin_image', fileNameProperty: 'imageName')]
+    #[Vich\UploadableField(mapping: 'user_image', fileNameProperty: 'imageName')]
     #[Assert\Image(maxSize: "8M", maxSizeMessage: "L'image est trop grande ({{ size }} {{ suffix }}). La taille maximum est de {{ limit }} {{ suffix }}.")]
     private ?File $imageFile = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $imageName = null;
+
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
+
+    #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'Collaborateurs')]
+    private Collection $projects;
+
+    #[ORM\OneToMany(mappedBy: 'CreatedBy', targetEntity: Project::class)]
+    private Collection $project_created;
+
+    public function __construct()
+    {
+        $this->projects = new ArrayCollection();
+        $this->project_created = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -118,19 +135,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->password = null;
     }
 
-    /**
-     * Get the value of firstName
-     */ 
     public function getFirstName()
     {
         return $this->firstName;
     }
 
-    /**
-     * Set the value of firstName
-     *
-     * @return  self
-     */ 
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
@@ -138,19 +147,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * Get the value of lastName
-     */ 
     public function getLastName()
     {
         return $this->lastName;
     }
 
-    /**
-     * Set the value of lastName
-     *
-     * @return  self
-     */ 
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
@@ -158,19 +159,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * Get the value of imageFile
-     */ 
     public function getImageFile()
     {
         return $this->imageFile;
     }
 
-    /**
-     * Set the value of imageFile
-     *
-     * @return  self
-     */ 
     public function setImageFile($imageFile)
     {
         $this->imageFile = $imageFile;
@@ -190,4 +183,91 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
     
+
+    /**
+     * Get the value of imageName
+     */ 
+    public function getImageName()
+    {
+        return $this->imageName;
+    }
+
+    /**
+     * Set the value of imageName
+     *
+     * @return  self
+     */ 
+    public function setImageName($imageName)
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Project>
+     */
+    public function getProjects(): Collection
+    {
+        return $this->projects;
+    }
+
+    public function addProject(Project $project): self
+    {
+        if (!$this->projects->contains($project)) {
+            $this->projects->add($project);
+            $project->addCollaborateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Project $project): self
+    {
+        if ($this->projects->removeElement($project)) {
+            $project->removeCollaborateur($this);
+        }
+
+        return $this;
+    }
+
+    public function getFullName(): ?string
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
+
+    public function __toString()
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
+
+    /**
+     * @return Collection<int, Project>
+     */
+    public function getProjectCreated(): Collection
+    {
+        return $this->project_created;
+    }
+
+    public function addProjectCreated(Project $projectCreated): self
+    {
+        if (!$this->project_created->contains($projectCreated)) {
+            $this->project_created->add($projectCreated);
+            $projectCreated->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectCreated(Project $projectCreated): self
+    {
+        if ($this->project_created->removeElement($projectCreated)) {
+            // set the owning side to null (unless already changed)
+            if ($projectCreated->getCreator() === $this) {
+                $projectCreated->setCreator(null);
+            }
+        }
+
+        return $this;
+    }
 }

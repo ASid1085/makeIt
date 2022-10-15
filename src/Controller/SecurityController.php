@@ -14,7 +14,7 @@ class SecurityController extends AbstractController
     {
         if($this->getUser()) {
             $this-> addFlash('danger', 'Vous êtes déjà connecté !');
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_user_home');
         }
 
         // get the login error if there is one
