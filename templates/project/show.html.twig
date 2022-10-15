@@ -1,0 +1,55 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title project.name %}
+
+{% block body %}
+<section>
+    <div class="row">
+        <div class="col-md-5 mx-auto">
+            <article class="project">
+                <h1 class="text-bf mb-3 text-center">{{ project.name }}</h1>
+
+                <div class="mw-100 overflow-hidden rounded-top bg-white rounded shadow">
+                    <img src="{{ (project.imageName ? vich_uploader_asset(project) : asset('build/img/placeholder.jpg')) | imagine_filter('squared_thumbnail_small') }}" alt="{{ project.name }}" class="w-100">
+                </div>
+
+                <div class="p-3">
+                    <p class="text-muted">
+                        <small>
+                            Ajouter le 
+                            <time datetime="{{ project.createdAt|date('y-m-d H:i:s') }}">{{ project.createdAt|date('d M Y') }}</time> par {{ project.creator.firstName }}
+                        </small>
+                    </p>
+                    <h3 class="h4 text-secondary">{{ project.type }}</h3>
+                    <p class="pt-3">Nombre d'étapes : {{ project.steps|length }}</p>
+
+                    {% if app.user == project.creator %}
+                        <div class="pt-3 text-center">
+                            <a href="{{ path('app_project_edit', {id: project.id}) }}" class="btn btn-custom text-beige">Modifier</a>
+                            <a href="#" onclick="event.preventDefault(); confirm('Êtes-vous sûr ?') &&
+                            document.getElementById('js-project-delete-form').submit()" class="btn btn-custom text-beige">Supprimer</a> 
+                        </div>
+                    {% endif %}
+                </div>
+
+                <form id="js-project-project-form" action="{{ path('app_project_delete', {id: project.id}) }}" method="POST" style="display: none">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token('project_deletion_' ~project.id) }}">
+                    <input type="hidden" name="_method" value="DELETE">
+                </form>
+            </article>  
+        </div>
+        <div class="col-md-6 mx-auto my-auto draw-default">
+            <article class="project ">
+                <div class="my-auto">
+                    {{ include('step/index.html.twig') }}
+                </div>
+                {% if app.user == project.creator %}
+                    <div class="pt-3 text-center ">
+                        <a href="{{ path('app_step_create') }}" class="btn btn-custom text-beige">Ajouter une étape</a>
+                    </div>
+                {% endif %}
+            </article>    
+        </div>
+    </div>
+</section>    
+{% endblock %}

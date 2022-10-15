@@ -1,0 +1,15 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title 'Modifier #' ~ project.name  %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <h1 class="text-center">Modifier #{{ project.name }}</h1>
+
+        {{ include('project/_form.html.twig', {'submitButtonText': 'Enregisrer'})}}
+    </div>
+</div>
+
+{% endblock %}

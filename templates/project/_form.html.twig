@@ -1,0 +1,6 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="d-grid">
+        <input type="submit" value="{{ submitButtonText|default('Créer le projet') }}" class="btn btn-custom text-beige" formnovalidate>
+    </div>
+{{ form_end(form) }}
