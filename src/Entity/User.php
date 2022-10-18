@@ -53,10 +53,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
-    #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'Collaborateurs')]
+    #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'collaborateurs')]
     private Collection $projects;
 
-    #[ORM\OneToMany(mappedBy: 'CreatedBy', targetEntity: Project::class)]
+    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Project::class)]
     private Collection $project_created;
 
     public function __construct()

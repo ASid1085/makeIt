@@ -49,7 +49,7 @@ class Project {
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: Step::class)]
     private Collection $steps;
 
-    #[ORM\ManyToOne(inversedBy: 'project_creator')]
+    #[ORM\ManyToOne(inversedBy: 'project_created')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $creator = null;
 
