@@ -1,0 +1,44 @@
+version: "3.8"
+services:
+
+  db:
+    image: mysql:8.0
+    cap_add:
+      - SYS_NICE
+    environment:
+      MYSQL_DATABASE: 'makeit_docker'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_ROOT_PASSWORD: 'Sidonie1'
+    volumes:
+      - db:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  
+  phpmyadmin:
+    image: phpmyadmin
+  #  container_name: phpmyadmin_makeit_docker
+    depends_on:
+      - db
+    ports:
+      - "8010:80"
+    environment:
+      PMA_HOST: db
+  
+  #maildev:
+  #  image: maildev/maildev
+  #  container_name: maildev_docker_symfony
+  #  command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
+  #  ports:
+  #    - "8081:80"
+  #  restart: always
+
+  app:
+    image: makeit_docker
+    ports:
+      - "8003:80"
+    environment:
+      DATABASE_URL: 'mysql://root:Sidonie1@db:3306/makeit_docker'
+      
+volumes:
+  db:
+    driver: local
