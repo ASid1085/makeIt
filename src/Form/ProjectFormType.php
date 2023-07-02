@@ -16,7 +16,7 @@ class ProjectFormType extends AbstractType
     {
         $builder
             ->add('imageFile', VichImageType::class, [
-                'mapped' => false,
+                //'mapped' => false,
                 'label' => 'Fichier JPG ou PNG',
                 'required' => false,
                 'allow_delete' => true,

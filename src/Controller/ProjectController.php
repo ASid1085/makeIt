@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Form\ProjectFormType;
+use App\Repository\StepRepository;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/project')]
+#[Route('/projects')]
 class ProjectController extends AbstractController
 {
     private $em;
@@ -21,12 +22,21 @@ class ProjectController extends AbstractController
         $this->em = $em;
     }
     
-    #[Route('', name: 'app_user_home', methods: 'GET')]
-    public function index(ProjectRepository $projectRepository): Response 
+    #[Route('', name: 'app_project_list', methods: 'GET')]
+    public function list(ProjectRepository $projectRepository): Response 
     {   
         $projects = $projectRepository->findBy([], ['createdAt' => 'DESC']);
-        return $this->render('project/index.html.twig', compact('projects'));
+        return $this->render('project/list.html.twig', compact('projects'));
     }
+
+    /*#[Route('/list', name: 'app_project_list', methods: 'GET')]
+    public function list(ProjectRepository $projectRepository): Response 
+    {   
+        $projects = $projectRepository->findAll();
+            return $this->render('project/list.html.twig', [
+                'projects'  => $projects,
+            ]);
+    }*/
 
     #[Route('/create', name: 'app_project_create', methods: 'GET|POST')]
     public function create(Request $request): Response
@@ -63,9 +73,13 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_project_show', methods: 'GET')] 
-    public function show(Project $project): Response
+    public function show(Project $project, StepRepository $step_repo): Response
     {
-        return $this->render('project/show.html.twig', compact('project'));
+        $steps = $steps = $step_repo->findBy([], ['createdAt' => 'DESC']);
+        return $this->render('project/show.html.twig', [
+            'project'  => $project,
+            'steps' => $steps,
+        ]);
     }
 
     #[Route('/{id}/edit', name: 'app_project_edit', methods: 'GET|POST')] 

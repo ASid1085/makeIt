@@ -10,7 +10,7 @@
                 <h1 class="text-bf mb-3 text-center">{{ project.name }}</h1>
 
                 <div class="mw-100 overflow-hidden rounded-top bg-white rounded shadow">
-                    <img src="{{ (project.imageName ? vich_uploader_asset(project) : asset('build/img/placeholder.jpg')) | imagine_filter('squared_thumbnail_small') }}" alt="{{ project.name }}" class="w-100">
+                    <img src="{{ (project.imageName ? vich_uploader_asset(project) : asset('build/img/placeholder.jpg')) }}" alt="{{ project.name }}" class="w-100">
                 </div>
 
                 <div class="p-3">
@@ -45,7 +45,7 @@
                 </div>
                 {% if app.user == project.creator %}
                     <div class="pt-3 text-center ">
-                        <a href="{{ path('app_step_create') }}" class="btn btn-custom text-beige">Ajouter une étape</a>
+                        <a href="{{ path('app_step_create', {id_project: project.id}) }}" class="btn btn-custom text-beige">Ajouter une étape</a>
                     </div>
                 {% endif %}
             </article>    

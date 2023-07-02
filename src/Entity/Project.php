@@ -55,7 +55,7 @@ class Project {
 
     public function __construct()
     {
-        $this->Collaborateurs = new ArrayCollection();
+        $this->collaborateurs = new ArrayCollection();
         $this->steps = new ArrayCollection();
     }
 

@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(name: "steps")]
 
 class Step {
+    
     use Timestampable;
 
     #[ORM\Id]
@@ -43,6 +44,10 @@ class Step {
 
     #[ORM\ManyToOne(inversedBy: 'steps')]
     private ?Project $project = null;
+
+    #[ORM\ManyToOne(inversedBy: 'step_created')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $creator = null;
 
     public function getId(): ?int
     {
@@ -122,6 +127,19 @@ class Step {
     public function setProject(?Project $project): self
     {
         $this->project = $project;
+
+        return $this;
+    }
+
+    public function getCreator(): User
+    {
+        return $this->creator;
+    }
+
+
+    public function setCreator($creator): self
+    {
+        $this->creator = $creator;
 
         return $this;
     }

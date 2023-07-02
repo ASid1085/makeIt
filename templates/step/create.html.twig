@@ -4,12 +4,21 @@
 
 {% block body %}
 
-<div class="row">
-    <div class="col-md-6 mx-auto">
-        <h1 class="text-center">Nouvelle étape</h1>
+<section class="draw-default">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h1 class="text-center mb-5">
+                <span class='text-bc'>{{ project.name }}</span>
+                <br/>
+                <br/>
+                <span class="h2">Ajout de l'étape</span>
+                <br/>
+                <span class='text-bc'>#{{ nb_step }}</span>
+            </h1>
 
-        {{ include('step/_form.html.twig')}}
+            {{ include('step/_form.html.twig')}}
+        </div>
     </div>
-</div>
+</section>
 
 {% endblock %}

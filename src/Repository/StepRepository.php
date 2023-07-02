@@ -39,6 +39,30 @@ class StepRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Int(number) Returns an int count step in project
+     */
+    public function findCountStepsInProject($value): int
+    {
+        $steps = $this->createQueryBuilder('s')
+        ->select('count(s.id)')
+        ->getQuery()
+        ->getSingleScalarResult();
+
+        if($steps > 0) {
+            return $this->createQueryBuilder('s')
+            ->select('count(s.id)')
+            ->andWhere('s.project = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getSingleScalarResult();
+        ;
+        } else {
+            return 0;
+        }
+        
+    }
+
 //    /**
 //     * @return Step[] Returns an array of Step objects
 //     */
