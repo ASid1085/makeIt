@@ -16,7 +16,7 @@ services:
   
   phpmyadmin:
     image: phpmyadmin
-  #  container_name: phpmyadmin_makeit_docker
+    container_name: phpmyadmin_makeit_docker
     depends_on:
       - db
     ports:
